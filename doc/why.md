@@ -65,7 +65,7 @@ class CoType
 ##### 我们通过tag标记，将复杂的参数名进行优化，使得整个数据结构的长度得到缩小。
 
 #### 代码实现
-- [PHP](demo/php/demo1.php)
+- [PHP](../demo/php/demo1.php)
 
 #### 更进一步，再次优化，进入下一篇
-- [标记tag字节优化](doc/why-tag-opt.md)
+- [标记tag字节优化](../doc/why-tag-opt.md)
