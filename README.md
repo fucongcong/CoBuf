@@ -7,3 +7,5 @@ Co Buffer 编写自己的数据交换格式
 
 #### 从简开始
 * [why CoBuf?](doc/why.md)
+* [标记tag字节优化](../doc/why-tag-opt.md)
+* [引入结构体类型](../doc/struct.md)

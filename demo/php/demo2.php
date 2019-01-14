@@ -162,7 +162,7 @@ class CoInt extends DataType
 {   
     public function get(&$val, $tag, $isNeed = true)
     {
-        $this->packVal($val, CoType::CO_INT, $tag, $isNeed = true);
+        $this->packVal($val, CoType::CO_INT, $tag, $isNeed);
     }
 
     public function set($data, $tag)
@@ -177,7 +177,7 @@ class CoLong extends DataType
 {   
     public function get(&$val, $tag, $isNeed = true)
     {
-        $this->packVal($val, CoType::CO_LONG, $tag, $isNeed = true);
+        $this->packVal($val, CoType::CO_LONG, $tag, $isNeed);
     }
 
     public function set($data, $tag)
@@ -192,7 +192,7 @@ class CoString extends DataType
 {   
     public function get(&$val, $tag, $isNeed = true)
     {
-        $this->packVal($val, CoType::CO_STRING, $tag, $isNeed = true);
+        $this->packVal($val, CoType::CO_STRING, $tag, $isNeed);
     }
 
     public function set($data, $tag)
