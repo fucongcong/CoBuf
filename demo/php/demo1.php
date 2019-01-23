@@ -91,13 +91,23 @@ function coUnpack($data)
         $tag = ord(substr($data, 0, 1));
 
         $data = substr($data, 1);
-        $len = unpack("N", substr($data, 0, 4));
-        $len = $len[1];
 
-        $data = substr($data, 4);
-        $val = unpack("a*", substr($data, 0, $len));
-        
-        $val = $val[1];
+        if ($type == CoType::CO_INT) {
+            $len = 4;
+            $val = unpack("N", substr($data, 0, 4));
+            $val = $val[1];
+        } elseif ($type == CoType::CO_LONG) {
+            $len = 8;
+            $val = unpack("J", substr($data, 0, 8));
+            $val = $val[1];
+        } else  {
+            $len = unpack("N", substr($data, 0, 4));
+            $len = $len[1];
+
+            $data = substr($data, 4);
+            $val = unpack("a*", substr($data, 0, $len));
+            $val = $val[1];
+        }
 
         $unpackData[$tag] = [
             'type' => $type,
@@ -151,6 +161,12 @@ class DataType
 
 class CoInt extends DataType
 {   
+    public function setVal($data)
+    {   
+        $this->val = pack("N", intval($data));
+        return $this->val;
+    }
+
     public function get(&$val, $tag, $isNeed = true)
     {
         $this->packVal($val, CoType::CO_INT, $tag, $isNeed);
@@ -166,6 +182,12 @@ class CoInt extends DataType
 
 class CoLong extends DataType
 {   
+    public function setVal($data)
+    {   
+        $this->val = pack("J", intval($data));
+        return $this->val;
+    }
+
     public function get(&$val, $tag, $isNeed = true)
     {
         $this->packVal($val, CoType::CO_LONG, $tag, $isNeed);

@@ -29,6 +29,7 @@
 
 #### 优化后的代码实现
 - [PHP](../demo/php/demo2.php)
+- [JAVA](../demo/java/src/main/java/Demo2.php)
 
 #### 更进一步，丰富类型，进入下一篇
 - [引入结构体类型](../doc/struct.md)

@@ -3,14 +3,22 @@ import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Demo1 {
+// struct Company
+// {
+//     0 need int id;
+//     1 need long code;
+//     2 need string name;
+//     16 optional string addr;
+// }
+// 
+public class Demo2 {
     public static void main(String[] args) {
         Company company = new Company();
         CompanyBuilder builder = company.getBuilder();
-        builder.setId(1);
+        builder.setId(10);
         builder.setCode(1111);
         builder.setName("coco");
-        builder.setAddr("aaaaaaaa");
+        builder.setAddr("aaaaaaaaaa");
 
         byte[] data = builder.toByteArray();
 
@@ -18,6 +26,20 @@ public class Demo1 {
         Company cpy = company1.parseFrom(data);
         cpy.getId();
         cpy.getCode();
+
+
+        // try {
+        //     File file = new File("2");
+        //     if(!file.exists()) {
+        //         file.createNewFile();
+        //     }
+        //     FileOutputStream fos = new FileOutputStream(file) ;
+        //     DataOutputStream fw = new DataOutputStream(fos);
+        //     fw.write(data);
+            
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
 }
 
@@ -269,19 +291,19 @@ class CompanyBuilder {
     }
 
     public byte[] toByteArray() {
-        byte[] ret = this.id.toByteVal(18, true);
-        ret = Util.byteMerge(ret, this.code.toByteVal(2, true));
-        ret = Util.byteMerge(ret, this.name.toByteVal(3, false));
-        ret = Util.byteMerge(ret, this.addr.toByteVal(4, false));
+        byte[] ret = this.id.toByteVal(0, true);
+        ret = Util.byteMerge(ret, this.code.toByteVal(1, true));
+        ret = Util.byteMerge(ret, this.name.toByteVal(2, false));
+        ret = Util.byteMerge(ret, this.addr.toByteVal(16, false));
         return ret;
     }
 
     public void parse(byte[] data, Company company) {
         Parser parser = new Parser(data);
-        this.id.parseByteVal(parser, 18);
-        this.code.parseByteVal(parser, 2);
-        this.name.parseByteVal(parser, 3);
-        this.addr.parseByteVal(parser, 4);
+        this.id.parseByteVal(parser, 0);
+        this.code.parseByteVal(parser, 1);
+        this.name.parseByteVal(parser, 2);
+        this.addr.parseByteVal(parser, 16);
 
         company.setId(this.id.getVal());
         company.setCode(this.code.getVal());
