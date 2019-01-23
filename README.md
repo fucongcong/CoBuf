@@ -11,15 +11,15 @@ Co Buffer 编写自己的数据交换格式
 * [引入结构体类型](doc/struct.md)
 
 #### 数据类型
-类型|值
----|:---:|
-int|1|
-long|2|
-string|3|
-struct|4|
-list|5|
-bool|6|
-map|7|
+类型|值|字节|php|java
+---|:---:|:---:|:---:|:---:|
+int|1|4|int|int
+long|2|8|int|long
+string|3|len|string|string
+struct|4|len|obj|obj
+list|5|len|array|list
+bool|6|1|bool|bool
+map|7|len|array|map
 
 #### 示例
 ```

@@ -20,13 +20,20 @@ function coUnpack($data)
         if ($type == CoType::CO_BOOL) {
             $len = 1;
             $val = ord(substr($data, 0, 1));
-        } else {
+        } elseif ($type == CoType::CO_INT) {
+            $len = 4;
+            $val = unpack("N", substr($data, 0, 4));
+            $val = $val[1];
+        } elseif ($type == CoType::CO_LONG) {
+            $len = 8;
+            $val = unpack("J", substr($data, 0, 8));
+            $val = $val[1];
+        } else  {
             $len = unpack("N", substr($data, 0, 4));
             $len = $len[1];
 
             $data = substr($data, 4);
             $val = unpack("a*", substr($data, 0, $len));
-
             $val = $val[1];
         }
 
@@ -88,7 +95,7 @@ class DataType
         return $this->val;
     }
 
-    public function getVal($data)
+    public function getListVal($data)
     {
         $len = 0;
         $ret = [];
@@ -111,6 +118,12 @@ class DataType
 
 class CoInt extends DataType
 {   
+    public function setVal($data)
+    {   
+        $this->val = pack("N", intval($data));
+        return $this->val;
+    }
+
     public function get(&$val, $tag, $isNeed = true)
     {
         $this->packVal($val, CoType::CO_INT, $tag, $isNeed);
@@ -123,6 +136,23 @@ class CoInt extends DataType
         }
     }
 
+    public function getListVal($data)
+    {
+        $len = 0;
+        $ret = [];
+        while (strlen($data) - $len > 0) {
+
+            if ($len > 0) $data = substr($data, $len);
+            $len = 4;
+            $val = unpack("N", substr($data, 0, $len));
+            $val = $val[1];
+
+            $ret[] = $val;
+        }
+
+        return $ret;
+    }
+
     public function getCoType()
     {
         return CoType::CO_INT;
@@ -131,6 +161,12 @@ class CoInt extends DataType
 
 class CoLong extends DataType
 {   
+    public function setVal($data)
+    {   
+        $this->val = pack("J", intval($data));
+        return $this->val;
+    }
+
     public function get(&$val, $tag, $isNeed = true)
     {
         $this->packVal($val, CoType::CO_LONG, $tag, $isNeed);
@@ -141,6 +177,23 @@ class CoLong extends DataType
         if (isset($data[$tag]) && $data[$tag]['type'] == CoType::CO_LONG) {
             return $data[$tag]['val'];
         }
+    }
+
+    public function getListVal($data)
+    {
+        $len = 0;
+        $ret = [];
+        while (strlen($data) - $len > 0) {
+
+            if ($len > 0) $data = substr($data, $len);
+            $len = 8;
+            $val = unpack("J", substr($data, 0, $len));
+            $val = $val[1];
+
+            $ret[] = $val;
+        }
+
+        return $ret;
     }
 
     public function getCoType()
@@ -193,7 +246,7 @@ class CoBool extends DataType
         }
     }
 
-    public function getVal($data)
+    public function getListVal($data)
     {
         $len = 0;
         $ret = [];
@@ -251,7 +304,7 @@ class CoList extends DataType
         if (isset($data[$tag]) && $data[$tag]['type'] == CoType::CO_LIST) {
             if (is_subclass_of($this->type, 'CoStruct')) {
                 $ret = [];
-                $one = $this->type->getVal($data[$tag]['val']);
+                $one = $this->type->getListVal($data[$tag]['val']);
                 //对每个结构体拆包
                 foreach ($one as $value) {
                     $struct = clone $this->type;
@@ -262,7 +315,7 @@ class CoList extends DataType
 
                 return $ret;
             } else {
-                return $this->type->getVal($data[$tag]['val']);
+                return $this->type->getListVal($data[$tag]['val']);
             }
         }
     }
