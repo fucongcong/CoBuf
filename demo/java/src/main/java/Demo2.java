@@ -10,8 +10,119 @@ import java.util.Map;
 //     2 need string name;
 //     16 optional string addr;
 // }
-// 
+//
+
+class Company {
+    public int id;
+    public long code;
+    public String name;
+    public String addr;
+    protected CompanyBuilder builder;
+
+    Company() {
+        this.builder = new CompanyBuilder();
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public CompanyBuilder getBuilder() {
+        return builder;
+    }
+
+    public Company parseFrom(byte[] data) {
+        this.builder.parse(data, this);
+        return this;
+    }
+}
+
+class CompanyBuilder {
+    public CoInt id;
+    public CoLong code;
+    public CoString name;
+    public CoString addr;
+
+    CompanyBuilder()
+    {
+        this.id = new CoInt();
+        this.code = new CoLong();
+        this.name = new CoString();
+        this.addr = new CoString();
+    }
+
+    public void setId(int id)
+    {
+        this.id.setVal(id);
+    }
+
+    public void setCode(long code)
+    {
+        this.code.setVal(code);
+    }
+
+    public void setName(String name)
+    {
+        this.name.setVal(name);
+    }
+
+    public void setAddr(String addr)
+    {
+        this.addr.setVal(addr);
+    }
+
+    public byte[] toByteArray() {
+        byte[] ret = this.id.toByteVal(0, true);
+        ret = Util.byteMerge(ret, this.code.toByteVal(1, true));
+        ret = Util.byteMerge(ret, this.name.toByteVal(2, false));
+        ret = Util.byteMerge(ret, this.addr.toByteVal(16, false));
+        return ret;
+    }
+
+    public void parse(byte[] data, Company company) {
+        Parser parser = new Parser(data);
+        this.id.parseByteVal(parser, 0);
+        this.code.parseByteVal(parser, 1);
+        this.name.parseByteVal(parser, 2);
+        this.addr.parseByteVal(parser, 16);
+
+        company.setId(this.id.getVal());
+        company.setCode(this.code.getVal());
+        company.setName(this.name.getVal());
+        company.setAddr(this.addr.getVal());
+    }
+}
+
 public class Demo2 {
+
     public static void main(String[] args) {
         Company company = new Company();
         CompanyBuilder builder = company.getBuilder();
@@ -200,115 +311,6 @@ class CoString extends DataType {
     public CoString parseByteVal(Parser parser, int tag) {
         this.val = (String) parser.getVal(tag);
         return this;
-    }
-}
-
-class Company {
-    public int id;
-    public long code;
-    public String name;
-    public String addr;
-    protected CompanyBuilder builder;
-
-    Company() {
-        this.builder = new CompanyBuilder();
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCode(long code) {
-        this.code = code;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public long getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public CompanyBuilder getBuilder() {
-        return builder;
-    }
-
-    public Company parseFrom(byte[] data) {
-        this.builder.parse(data, this);
-        return this;
-    }
-}
-
-class CompanyBuilder {
-    public CoInt id;
-    public CoLong code;
-    public CoString name;
-    public CoString addr;
-
-    CompanyBuilder()
-    {
-        this.id = new CoInt();
-        this.code = new CoLong();
-        this.name = new CoString();
-        this.addr = new CoString();
-    }
-
-    public void setId(int id)
-    {
-        this.id.setVal(id);
-    }
-
-    public void setCode(long code)
-    {
-        this.code.setVal(code);
-    }
-
-    public void setName(String name)
-    {
-        this.name.setVal(name);
-    }
-
-    public void setAddr(String addr)
-    {
-        this.addr.setVal(addr);
-    }
-
-    public byte[] toByteArray() {
-        byte[] ret = this.id.toByteVal(0, true);
-        ret = Util.byteMerge(ret, this.code.toByteVal(1, true));
-        ret = Util.byteMerge(ret, this.name.toByteVal(2, false));
-        ret = Util.byteMerge(ret, this.addr.toByteVal(16, false));
-        return ret;
-    }
-
-    public void parse(byte[] data, Company company) {
-        Parser parser = new Parser(data);
-        this.id.parseByteVal(parser, 0);
-        this.code.parseByteVal(parser, 1);
-        this.name.parseByteVal(parser, 2);
-        this.addr.parseByteVal(parser, 16);
-
-        company.setId(this.id.getVal());
-        company.setCode(this.code.getVal());
-        company.setName(this.name.getVal());
-        company.setAddr(this.addr.getVal());
     }
 }
 
