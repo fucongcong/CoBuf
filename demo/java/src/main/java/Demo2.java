@@ -1,3 +1,4 @@
+import co.buf.parser.CoBuilder;
 import co.buf.parser.CoParser;
 import co.buf.type.*;
 import co.buf.util.ByteUtil;
@@ -10,12 +11,11 @@ import co.buf.util.ByteUtil;
 // }
 //
 
-class Company {
+class Company extends CoStruct {
     public int id;
     public long code;
     public String name;
     public String addr;
-    protected CompanyBuilder builder;
 
     Company() {
         this.builder = new CompanyBuilder();
@@ -54,7 +54,7 @@ class Company {
     }
 
     public CompanyBuilder getBuilder() {
-        return builder;
+        return (CompanyBuilder) builder;
     }
 
     public Company parseFrom(byte[] data) {
@@ -63,7 +63,7 @@ class Company {
     }
 }
 
-class CompanyBuilder {
+class CompanyBuilder extends CoBuilder {
     public CoInt id;
     public CoLong code;
     public CoString name;
@@ -106,13 +106,14 @@ class CompanyBuilder {
         return ret;
     }
 
-    public void parse(byte[] data, Company company) {
+    public void parse(byte[] data, CoStruct struct) {
         CoParser parser = new CoParser(data);
         this.id.parseByteVal(parser, 0);
         this.code.parseByteVal(parser, 1);
         this.name.parseByteVal(parser, 2);
         this.addr.parseByteVal(parser, 16);
 
+        Company company = (Company) struct;
         company.setId(this.id.getVal());
         company.setCode(this.code.getVal());
         company.setName(this.name.getVal());
@@ -136,7 +137,6 @@ public class Demo2 {
         Company cpy = company1.parseFrom(data);
         cpy.getId();
         cpy.getCode();
-
 
         // try {
         //     File file = new File("2");

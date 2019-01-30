@@ -45,6 +45,9 @@ public class DataType {
                 byte[] strBytes = str.getBytes();
                 this.byteVal = ByteUtil.byteMerge(ByteUtil.int2Byte(strBytes.length), strBytes);
             }
+        } else if (type == CoType.CO_STRUCT) {
+            byte[] strBytes = (byte[]) val;
+            this.byteVal = ByteUtil.byteMerge(ByteUtil.int2Byte(strBytes.length), strBytes);
         }
     }
 }
