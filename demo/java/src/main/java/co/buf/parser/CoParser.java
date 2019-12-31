@@ -57,6 +57,13 @@ public class CoParser {
                 }
 
                 parserData.put(tag, str);
+            } else if (type == CoType.CO_BOOL) {
+                if ((int) buf.get(offset) == 1) {
+                    parserData.put(tag, true);
+                } else {
+                    parserData.put(tag, false);
+                }
+                offset++;
             }
         }
     }

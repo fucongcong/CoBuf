@@ -48,6 +48,14 @@ public class DataType {
         } else if (type == CoType.CO_STRUCT) {
             byte[] strBytes = (byte[]) val;
             this.byteVal = ByteUtil.byteMerge(ByteUtil.int2Byte(strBytes.length), strBytes);
+        } else if (type == CoType.CO_BOOL) {
+            byte[] ret = new byte[1];
+            if ((boolean) val == true) {
+                ret[0] = (byte) 1;
+            } else {
+                ret[0] = (byte) 0;
+            }
+            this.byteVal = ret;
         }
     }
 }
