@@ -6,7 +6,7 @@ require __DIR__.'/lib/Co.php';
 // {
 //     0 need list<string> names;
 //     1 need map<string, string> sexs;
-//     2 need optional work;
+//     2 need optional bool work;
 // }
 // struct Company
 // {

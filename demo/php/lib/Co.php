@@ -64,8 +64,8 @@ class CoType
     const CO_LONG = 2;
     const CO_STRING = 3;
     const CO_STRUCT = 4;
-    const CO_LIST = 5;
-    const CO_BOOL = 6;
+    const CO_BOOL = 5;
+    const CO_LIST = 6;
     const CO_MAP = 7;
 }
 
