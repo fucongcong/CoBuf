@@ -13,7 +13,7 @@ public class CoBool extends DataType
 
     public byte[] toByteVal(int tag, boolean need) {
         this.setByteVal(this.val, CoType.CO_BOOL);
-        return this.packByteVal(tag, CoType.CO_BOOL, need);
+        return this.packByteVal(tag, CoType.CO_BOOL);
     }
 
     public boolean getVal() {

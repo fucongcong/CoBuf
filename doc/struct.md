@@ -30,5 +30,9 @@ struct Company      //结构体的名称
 
 #### 结构体复用的编码原则其实与单个结构体编码一致，只是做了一层嵌套罢了。
 
+#### 代码实现
+- [PHP](../demo/php/demo2.php)
+- [JAVA](../demo/java/src/main/java/struct)
+- 
 #### 下一篇继续完善基础类型
 - [引入Bool类型](../doc/bool.md)

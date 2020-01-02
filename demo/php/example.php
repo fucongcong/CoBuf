@@ -219,38 +219,41 @@ class User extends CoStruct {
 }
 
 
-$data = null;
+// $data = null;
 
-$members = new Members;
-$members->setNames(["aa", "cc", "dd"]);
-$members->setSexs([
-    "aa" => "男",
-    "cc" => "女"
-]);
+// $members = new Members;
+// $members->setNames(["aa", "cc", "dd"]);
+// $members->setSexs([
+//     "aa" => "男",
+//     "cc" => "女"
+// ]);
 
-$members2 = new Members;
-$members2->setNames(["coco"]);
-$members2->setWork(true);
+// $members2 = new Members;
+// $members2->setNames(["coco"]);
+// $members2->setWork(true);
 
-$company = new Company;
-$company->setId(10);
-$company->setCode(1111);
-$company->setName('coco');
-$company->setAddr('aaaaaaaaaa');
-$company->setMembers($members);
-$company->setMemberLists([$members, $members2]);
-$company->setMemberMaps(['test1' => $members, 'test2' => $members2]);
+// $company = new Company;
+// $company->setId(10);
+// $company->setCode(1111);
+// $company->setName('coco');
+// $company->setAddr('aaaaaaaaaa');
+// $company->setMembers($members);
+// $company->setMemberLists([$members, $members2]);
+// $company->setMemberMaps(['test1' => $members, 'test2' => $members2]);
 
-$user = new User;
-$user->setId(1);
-$user->setCompany($company);
-$user->setWorking(true);
-$user->pack($data);
+// $user = new User;
+// $user->setId(1);
+// $user->setCompany($company);
+// $user->setWorking(true);
+// $user->pack($data);
 
-$packLen = strlen($data);
+// $packLen = strlen($data);
 
+
+$data = file_get_contents('./../java/data/map-list-demo.data');
 $unpackData = coUnpack($data);
 $obj = new User;
 $obj->unpack($unpackData);
+file_put_contents('./../java/data/map-list-demo.json', json_encode($obj));
 print_r($obj);//var_dump($obj)
 

@@ -13,7 +13,7 @@ public class CoInt extends DataType
 
     public byte[] toByteVal(int tag, boolean need) {
         this.setByteVal(this.val, CoType.CO_INT);
-        return this.packByteVal(tag, CoType.CO_INT, need);
+        return this.packByteVal(tag, CoType.CO_INT);
     }
 
     public int getVal() {

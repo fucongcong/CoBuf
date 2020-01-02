@@ -17,7 +17,7 @@ public class CoLong extends DataType
 
     public byte[] toByteVal(int tag, boolean need) {
         this.setByteVal(this.val, CoType.CO_LONG);
-        return this.packByteVal(tag, CoType.CO_LONG, need);
+        return this.packByteVal(tag, CoType.CO_LONG);
     }
 
     public CoLong parseByteVal(CoParser parser, int tag) {

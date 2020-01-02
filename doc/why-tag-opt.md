@@ -29,7 +29,7 @@
 
 #### 优化后的代码实现
 - [PHP](../demo/php/demo2.php)
-- [JAVA](../demo/java/src/main/java/Demo2.java)
+- [JAVA](../demo/java/src/main/java/struct)
 
 #### 数据展示
 

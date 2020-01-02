@@ -9,6 +9,8 @@ Co Buffer 编写自己的数据交换格式
 * [why CoBuf?](doc/why.md)
 * [标记tag字节优化](doc/why-tag-opt.md)
 * [引入结构体类型](doc/struct.md)
+* [引入Bool类型](doc/bool.md)
+* [引入List与Map类型](../doc/list-map.md)
 
 #### 数据类型
 类型|值|字节|php|java

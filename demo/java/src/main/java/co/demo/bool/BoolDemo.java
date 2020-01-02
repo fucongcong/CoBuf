@@ -1,24 +1,18 @@
+package co.demo.bool;
+
 import co.buf.parser.CoBuilder;
 import co.buf.parser.CoParser;
-import co.buf.type.*;
+import co.buf.type.CoBool;
+import co.buf.type.CoInt;
+import co.buf.type.CoStruct;
 import co.buf.util.ByteUtil;
-
-import java.util.List;
-// struct Members
-// {
-//     0 need list<string> names;
-//     1 need map<string, string> sexs;
-//     2 need optional bool work;
-// }
+import co.demo.struct.*;
 // struct Company
 // {
 //     0 need int id;
 //     1 need long code;
 //     2 need string name;
 //     16 optional string addr;
-//     4 optional Members members;
-//     5 optional list<Members> memberLists;
-//     6 optional map<string, Members> memberMaps;
 // }
 //struct User
 //{
@@ -27,67 +21,6 @@ import java.util.List;
 //     2 optional bool working;
 //}
 //
-
-class Members extends  CoStruct {
-    public List<String> names;
-    public boolean work;
-
-    Members() {}
-
-    public List<String> getNames() {
-        return names;
-    }
-
-    public void setNames(List<String> names) {
-        this.names = names;
-    }
-
-    public boolean isWork() {
-        return work;
-    }
-
-    public void setWork(boolean work) {
-        this.work = work;
-    }
-}
-
-class MembersBuilder extends  CoBuilder {
-    public CoList names;
-    public CoBool work;
-
-    MembersBuilder()
-    {
-        this.names = new CoList(new CoString());
-        this.work = new CoBool();
-    }
-
-    public void setNames(List<String> names)
-    {
-        this.names.setVal(names);
-    }
-
-    public void setWork(boolean work) {
-        this.work.setVal(work);
-    }
-
-    public byte[] toByteArray() {
-        byte[] ret = null;
-        ret = ByteUtil.byteMerge(ret, this.names.toByteVal(0, true));
-        ret = ByteUtil.byteMerge(ret, this.work.toByteVal(2, false));
-        return ret;
-    }
-
-    public void parse(byte[] data, CoStruct struct) {
-        CoParser parser = new CoParser(data);
-        this.names.parseByteVal(parser, 0);
-        this.work.parseByteVal(parser, 2);
-
-        Members members = (Members) struct;
-        members.setNames((List<String>) this.names.getVal());
-        members.setWork(this.work.getVal());
-    }
-}
-
 class User extends CoStruct {
     public int id;
     public Company company;
@@ -178,7 +111,7 @@ class UserBuilder extends CoBuilder {
     }
 }
 
-public class Demo3 {
+public class BoolDemo {
 
     public static void main(String[] args) {
         Company company = new Company();

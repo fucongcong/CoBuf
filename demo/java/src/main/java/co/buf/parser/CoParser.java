@@ -1,6 +1,5 @@
 package co.buf.parser;
 
-import co.buf.type.CoStruct;
 import co.buf.type.CoType;
 
 import java.nio.ByteBuffer;
@@ -46,7 +45,7 @@ public class CoParser {
                 }
 
                 parserData.put(tag, new String(str));
-            } else if (type == CoType.CO_STRUCT) {
+            } else if (type == CoType.CO_STRUCT || type == CoType.CO_LIST) {
                 int len = buf.getInt(offset);
                 offset = offset + 4;
 

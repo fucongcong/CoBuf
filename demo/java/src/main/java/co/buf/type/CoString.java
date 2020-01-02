@@ -16,7 +16,7 @@ public class CoString extends DataType {
 
     public byte[] toByteVal(int tag, boolean need) {
         this.setByteVal(this.val, CoType.CO_STRING);
-        return this.packByteVal(tag, CoType.CO_STRING, need);
+        return this.packByteVal(tag, CoType.CO_STRING);
     }
 
     public CoString parseByteVal(CoParser parser, int tag) {

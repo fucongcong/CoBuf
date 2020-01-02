@@ -2,14 +2,18 @@ package co.buf.type;
 
 import co.buf.util.ByteUtil;
 
-public class DataType {
+public class DataType implements Cloneable {
     protected byte[] byteVal = null;
 
     public void setVal(Object val) {
 
     }
 
-    public byte[] packByteVal(int tag, int type, boolean need) {
+    public byte[] getByteVal() {
+        return byteVal;
+    }
+
+    public byte[] packByteVal(int tag, int type) {
         if (this.byteVal != null) {
             if (tag >= 15) {
                 byte[] ret = new byte[this.byteVal.length + 2];
@@ -45,7 +49,7 @@ public class DataType {
                 byte[] strBytes = str.getBytes();
                 this.byteVal = ByteUtil.byteMerge(ByteUtil.int2Byte(strBytes.length), strBytes);
             }
-        } else if (type == CoType.CO_STRUCT) {
+        } else if (type == CoType.CO_STRUCT || type == CoType.CO_LIST) {
             byte[] strBytes = (byte[]) val;
             this.byteVal = ByteUtil.byteMerge(ByteUtil.int2Byte(strBytes.length), strBytes);
         } else if (type == CoType.CO_BOOL) {

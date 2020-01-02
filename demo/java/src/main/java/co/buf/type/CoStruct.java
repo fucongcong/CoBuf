@@ -19,7 +19,7 @@ public class CoStruct extends DataType {
 
     public byte[] toByteVal(int tag, boolean need) {
         this.setByteVal(this.val.builder.toByteArray(), CoType.CO_STRUCT);
-        return this.packByteVal(tag, CoType.CO_STRUCT, need);
+        return this.packByteVal(tag, CoType.CO_STRUCT);
     }
 
     public CoStruct parseByteVal(CoParser parser, int tag, CoStruct val) {
@@ -27,5 +27,21 @@ public class CoStruct extends DataType {
         val.builder.parse(structBytes, val);
         this.val = val;
         return this;
+    }
+
+    public CoBuilder getBuilder() {
+        return builder;
+    }
+
+    @Override
+    public CoStruct clone() {
+        CoStruct coStruct = null;
+        try{
+            coStruct = (CoStruct) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        return coStruct;
     }
 }
