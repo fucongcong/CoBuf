@@ -20,7 +20,7 @@
 #### bool类型我们在传输中用0或1表示，用1个字节存储
 
 #### 代码实现
-- [JAVA](../demo/java/src/main/java/bool)
+- [JAVA](../demo/java/src/main/java/bool/BoolDemo.java)
 
 #### 下一篇继续完善基础类型
 - [引入List与Map类型](../doc/list-map.md)

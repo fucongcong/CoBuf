@@ -29,5 +29,5 @@ struct Members
 ```
 #### 代码实现
 - [PHP](../demo/php/example.php)
-- [JAVA](../demo/java/src/main/java/maplist)
+- [JAVA](../demo/java/src/main/java/maplist/MapListDemo.java)
 

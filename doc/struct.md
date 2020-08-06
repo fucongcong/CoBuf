@@ -32,7 +32,7 @@ struct Company      //结构体的名称
 
 #### 代码实现
 - [PHP](../demo/php/demo2.php)
-- [JAVA](../demo/java/src/main/java/struct)
+- [JAVA](../demo/java/src/main/java/struct/StructDemo.java)
 - 
 #### 下一篇继续完善基础类型
 - [引入Bool类型](../doc/bool.md)
